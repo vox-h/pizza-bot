@@ -21,10 +21,8 @@ from filters.chat_types import ChatTypeFilter, IsAdmin
 from kbds.inline import get_callback_btns
 from kbds.reply import get_keyboard
 
-
 admin_router = Router()
 admin_router.message.filter(ChatTypeFilter(["private"]), IsAdmin())
-
 
 ADMIN_KB = get_keyboard(
     "Добавить товар",
@@ -43,7 +41,7 @@ async def admin_features(message: types.Message):
 @admin_router.message(F.text == 'Ассортимент')
 async def admin_features(message: types.Message, session: AsyncSession):
     categories = await orm_get_categories(session)
-    btns = {category.name : f'category_{category.id}' for category in categories}
+    btns = {category.name: f'category_{category.id}' for category in categories}
     await message.answer("Выберите категорию", reply_markup=get_callback_btns(btns=btns))
 
 
@@ -81,6 +79,7 @@ async def delete_product_callback(callback: types.CallbackQuery, session: AsyncS
 class AddBanner(StatesGroup):
     image = State()
 
+
 # Отправляем перечень информационных страниц бота и становимся в состояние отправки photo
 @admin_router.message(StateFilter(None), F.text == 'Добавить/Изменить баннер')
 async def add_image2(message: types.Message, state: FSMContext, session: AsyncSession):
@@ -88,6 +87,7 @@ async def add_image2(message: types.Message, state: FSMContext, session: AsyncSe
     await message.answer(f"Отправьте фото баннера.\nВ описании укажите для какой страницы:\
                          \n{', '.join(pages_names)}")
     await state.set_state(AddBanner.image)
+
 
 # Добавляем/изменяем изображение в таблице (там уже есть записанные страницы по именам:
 # main, catalog, cart(для пустой корзины), about, payment, shipping
@@ -100,17 +100,18 @@ async def add_banner(message: types.Message, state: FSMContext, session: AsyncSe
         await message.answer(f"Введите нормальное название страницы, например:\
                          \n{', '.join(pages_names)}")
         return
-    await orm_update_banner_image(session, for_page, image_id,)
+    await orm_update_banner_image(session, for_page, image_id, )
     await message.answer("Баннер добавлен/изменен.")
     await state.clear()
+
 
 # ловим некоррекный ввод
 @admin_router.message(AddBanner.image)
 async def add_banner2(message: types.Message, state: FSMContext):
     await message.answer("Отправьте фото баннера или отмена")
 
-#########################################################################################
 
+#########################################################################################
 
 
 ######################### FSM для дабавления/изменения товаров админом ###################
@@ -137,7 +138,7 @@ class AddProduct(StatesGroup):
 # Становимся в состояние ожидания ввода name
 @admin_router.callback_query(StateFilter(None), F.data.startswith("change_"))
 async def change_product_callback(
-    callback: types.CallbackQuery, state: FSMContext, session: AsyncSession
+        callback: types.CallbackQuery, state: FSMContext, session: AsyncSession
 ):
     product_id = callback.data.split("_")[-1]
 
@@ -217,6 +218,7 @@ async def add_name(message: types.Message, state: FSMContext):
     await message.answer("Введите описание товара")
     await state.set_state(AddProduct.description)
 
+
 # Хендлер для отлова некорректных вводов для состояния name
 @admin_router.message(AddProduct.name)
 async def add_name2(message: types.Message, state: FSMContext):
@@ -237,9 +239,10 @@ async def add_description(message: types.Message, state: FSMContext, session: As
         await state.update_data(description=message.text)
 
     categories = await orm_get_categories(session)
-    btns = {category.name : str(category.id) for category in categories}
+    btns = {category.name: str(category.id) for category in categories}
     await message.answer("Выберите категорию", reply_markup=get_callback_btns(btns=btns))
     await state.set_state(AddProduct.category)
+
 
 # Хендлер для отлова некорректных вводов для состояния description
 @admin_router.message(AddProduct.description)
@@ -249,7 +252,7 @@ async def add_description2(message: types.Message, state: FSMContext):
 
 # Ловим callback выбора категории
 @admin_router.callback_query(AddProduct.category)
-async def category_choice(callback: types.CallbackQuery, state: FSMContext , session: AsyncSession):
+async def category_choice(callback: types.CallbackQuery, state: FSMContext, session: AsyncSession):
     if int(callback.data) in [category.id for category in await orm_get_categories(session)]:
         await callback.answer()
         await state.update_data(category=callback.data)
@@ -259,7 +262,8 @@ async def category_choice(callback: types.CallbackQuery, state: FSMContext , ses
         await callback.message.answer('Выберите катеорию из кнопок.')
         await callback.answer()
 
-#Ловим любые некорректные действия, кроме нажатия на кнопку выбора категории
+
+# Ловим любые некорректные действия, кроме нажатия на кнопку выбора категории
 @admin_router.message(AddProduct.category)
 async def category_choice2(message: types.Message, state: FSMContext):
     await message.answer("'Выберите катеорию из кнопок.'")
@@ -280,6 +284,7 @@ async def add_price(message: types.Message, state: FSMContext):
         await state.update_data(price=message.text)
     await message.answer("Загрузите изображение товара")
     await state.set_state(AddProduct.image)
+
 
 # Хендлер для отлова некорректных ввода для состояния price
 @admin_router.message(AddProduct.price)
@@ -315,6 +320,7 @@ async def add_image(message: types.Message, state: FSMContext, session: AsyncSes
         await state.clear()
 
     AddProduct.product_for_change = None
+
 
 # Ловим все прочее некорректное поведение для этого состояния
 @admin_router.message(AddProduct.image)
