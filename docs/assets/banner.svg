@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">Pizza Bot</title>
+  <desc id="desc">Telegram menu, cart and admin tools. A pizza illustration on a warm cream background.</desc>
+  <rect width="1280" height="420" rx="28" fill="#faf4e8"/>
+  <path d="M0 360H1280V420H0Z" fill="#eee5d5"/>
+  <circle cx="1100" cy="110" r="245" fill="#f0e6d3"/>
+  <rect x="64" y="53" width="187" height="32" rx="16" fill="#244d3d"/>
+  <text x="157" y="74" text-anchor="middle" fill="#fffaf0" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="2">TELEGRAM BOT</text>
+  <text x="60" y="185" fill="#243e32" font-family="Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="-4">Pizza Bot<tspan fill="#d75a35">.</tspan></text>
+  <text x="66" y="234" fill="#655e50" font-family="Arial, sans-serif" font-size="25">A little pizzeria. Right in your chat.</text>
+  <g font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#244d3d">
+    <rect x="66" y="274" width="111" height="38" rx="19" fill="#e3e8db"/>
+    <text x="121" y="299" text-anchor="middle">MENU</text>
+    <rect x="188" y="274" width="111" height="38" rx="19" fill="#e3e8db"/>
+    <text x="243" y="299" text-anchor="middle">CART</text>
+    <rect x="310" y="274" width="111" height="38" rx="19" fill="#e3e8db"/>
+    <text x="365" y="299" text-anchor="middle">ADMIN</text>
+  </g>
+  <g transform="translate(965 202) rotate(12)">
+    <circle r="150" cy="8" fill="#ded4bd"/>
+    <circle r="150" fill="#fffdf6"/>
+    <circle r="133" fill="#d89a50"/>
+    <circle r="119" fill="#be4f31"/>
+    <circle r="108" fill="#f2cc76"/>
+    <g fill="#c85336" stroke="#ac432d" stroke-width="3">
+      <circle cx="-48" cy="-63" r="22"/>
+      <circle cx="38" cy="-64" r="21"/>
+      <circle cx="73" cy="10" r="22"/>
+      <circle cx="26" cy="68" r="23"/>
+      <circle cx="-60" cy="46" r="23"/>
+      <circle cx="-12" cy="-1" r="20"/>
+    </g>
+    <g fill="#386746">
+      <path d="M-20-92Q8-116 13-83Q-8-72-20-92Z"/>
+      <path d="M43-6Q48-38 70-29Q76-7 43-6Z"/>
+      <path d="M-34 84Q-49 55-20 51Q-4 72-34 84Z"/>
+      <path d="M-89-4Q-111-29-84-39Q-64-25-89-4Z"/>
+    </g>
+  </g>
+  <text x="66" y="396" fill="#655e50" font-family="Arial, sans-serif" font-size="14" letter-spacing="1">PYTHON / AIOGRAM / SQLALCHEMY</text>
+</svg>
